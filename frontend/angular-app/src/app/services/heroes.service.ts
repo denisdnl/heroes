@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Observer, Subject, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Hero } from '../models/hero'
+import { HubConnection,HubConnectionBuilder } from '@aspnet/signalr';
+import * as signalR from '@aspnet/signalr';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -10,19 +12,53 @@ const httpOptions = {
 
 @Injectable()
 export class HeroesService {
-  private heroesUrl = 'api/heroes'; 
+  private heroesUrl = 'https://localhost:44315/api/heroes'; 
   private _httpClient:HttpClient;
   private _heroesSubject:Subject<Hero[]>;
   private _heroes:Hero[];
+  private _hubConnection: HubConnection;
 
   constructor(http:HttpClient) { 
       this._httpClient = http;
       this._heroesSubject =new Subject<Hero[]>();
       this._heroes;
+      this._hubConnection = new signalR.HubConnectionBuilder()
+      .withUrl("https://localhost:44315/notify")
+      .configureLogging(signalR.LogLevel.Information)
+      .withHubProtocol("")
+      .build();
+      this.registerCallbacks();
   }
 
   getHeroObservable(){
     return this._heroesSubject.asObservable();
+  }
+
+  startNotifications(){
+     this._hubConnection.start().then();
+  }
+
+  private registerCallbacks(){
+    this._hubConnection.on("NotifyDeleteHero",(hero:Hero)=>{
+      this._heroes = this._heroes.filter(t=>t.id !== hero.id);
+      this._heroesSubject.next(this._heroes);
+    });
+
+    this._hubConnection.on("NotifyAddHero",(hero:Hero)=>{
+      this._heroes.push(hero);
+      this._heroesSubject.next(this._heroes);
+    });
+
+    this._hubConnection.on("NotifyUpdateHero",(hero:Hero)=>{
+      this._heroes = this._heroes.filter(t=>t.id != hero.id);//remove
+      this._heroes.push(hero);//and put it back
+      this._heroesSubject.next(this._heroes);
+    });
+
+  }
+
+  stopNotifications(){
+    this._hubConnection.stop().then();
   }
 
   getHeroes(){
@@ -53,9 +89,7 @@ export class HeroesService {
 
 
   removeHero(id){
-    this._httpClient.delete<Hero[]>(this.heroesUrl+"/"+id).subscribe();
-    this._heroes = this._heroes.filter(t=>t.id !== id);
-    this._heroesSubject.next(this._heroes);
+    this._httpClient.delete<Hero>(this.heroesUrl+"/"+id).subscribe();
   }
 
   addHero(hero:Hero){
@@ -69,13 +103,6 @@ export class HeroesService {
           owner:hero.owner
         },
         httpOptions).subscribe();
-
-        this._heroes.push({
-          id:this._heroes.length+12,
-          name:hero.name,
-          owner:hero.owner
-        });
-        this._heroesSubject.next(this._heroes);
   }
 
   updateHero(hero:Hero):Observable<Hero>{
