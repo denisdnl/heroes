@@ -1,0 +1,12 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="card">
+<div class="card-body title">
+    {{ title }}!
+</div>
+</div>
+<div>
+  <button type="button" (click)="changePage('dashboard')" [ngClass]="['btn','btn-primary','dashboard', activePage]">Dashboard</button>
+  <button type="button" (click)="changePage('heroes')" [ngClass]="['btn','btn-primary','heroes', activePage]">Heroes</button>
+</div>
+<div>Is Loading: {{loadingService.isLoading}}</div>
+<router-outlet></router-outlet>
