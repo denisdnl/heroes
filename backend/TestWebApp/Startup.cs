@@ -19,6 +19,7 @@ using Autofac.Extensions.DependencyInjection;
 using Autofac.Builder;
 using Autofac.Features.Scanning;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
 
 namespace TestWebApp
 {
@@ -42,11 +43,21 @@ namespace TestWebApp
             });
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
+            {
+                builder
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .WithOrigins("http://localhost:4200");
+            }));
+
+            // Add framework services.
             services.AddSignalR();
+            services.AddMvc();
             services.AddEntityFrameworkSqlServer();
             var connectionString = Configuration.GetConnectionString("HeroesConnection");
             services.AddDbContext<HeroesContext>(options => options.UseSqlServer(connectionString),ServiceLifetime.Scoped);
+
 
 
             var containerBuilder = new ContainerBuilder();
@@ -81,13 +92,17 @@ namespace TestWebApp
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseCookiePolicy();
-
-            app.UseMvc();
+            app.UseCors(builder =>
+            {
+                builder.WithOrigins("http://localhost:4200")
+                .AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+            });
 
             app.UseSignalR(builder =>
             {
-                builder.MapHub<HeroesNotificationHub>("/notificationService");
+                builder.MapHub<HeroesNotificationHub>("/notify");
             });
+            app.UseMvc();
         }
     }
 

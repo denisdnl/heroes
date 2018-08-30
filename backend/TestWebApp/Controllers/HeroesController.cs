@@ -57,9 +57,10 @@ namespace TestWebApp.Controllers
         }
 
         // DELETE api/<controller>/5
-        [HttpDelete]
-        public Hero Delete([FromBody]Hero value)
+        [HttpDelete("{id}")]
+        public Hero Delete(int id)
         {
+            Hero value = new Hero() { Id = id };
             _heroRepository.DeleteHero(value.Id);
             _notificationService.DeleteHero(value);
             return value;
