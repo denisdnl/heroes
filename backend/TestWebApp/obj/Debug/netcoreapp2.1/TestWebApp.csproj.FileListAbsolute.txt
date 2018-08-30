@@ -1,0 +1,14 @@
+C:\Users\denis.daniel.stan\source\repos\TestWebApp\TestWebApp\bin\Debug\netcoreapp2.1\TestWebApp.deps.json
+C:\Users\denis.daniel.stan\source\repos\TestWebApp\TestWebApp\bin\Debug\netcoreapp2.1\TestWebApp.runtimeconfig.json
+C:\Users\denis.daniel.stan\source\repos\TestWebApp\TestWebApp\bin\Debug\netcoreapp2.1\TestWebApp.runtimeconfig.dev.json
+C:\Users\denis.daniel.stan\source\repos\TestWebApp\TestWebApp\bin\Debug\netcoreapp2.1\TestWebApp.dll
+C:\Users\denis.daniel.stan\source\repos\TestWebApp\TestWebApp\bin\Debug\netcoreapp2.1\TestWebApp.pdb
+C:\Users\denis.daniel.stan\source\repos\TestWebApp\TestWebApp\obj\Debug\netcoreapp2.1\TestWebApp.csprojAssemblyReference.cache
+C:\Users\denis.daniel.stan\source\repos\TestWebApp\TestWebApp\obj\Debug\netcoreapp2.1\TestWebApp.csproj.CoreCompileInputs.cache
+C:\Users\denis.daniel.stan\source\repos\TestWebApp\TestWebApp\obj\Debug\netcoreapp2.1\TestWebApp.RazorAssemblyInfo.cache
+C:\Users\denis.daniel.stan\source\repos\TestWebApp\TestWebApp\obj\Debug\netcoreapp2.1\TestWebApp.RazorAssemblyInfo.cs
+C:\Users\denis.daniel.stan\source\repos\TestWebApp\TestWebApp\obj\Debug\netcoreapp2.1\TestWebApp.AssemblyInfoInputs.cache
+C:\Users\denis.daniel.stan\source\repos\TestWebApp\TestWebApp\obj\Debug\netcoreapp2.1\TestWebApp.AssemblyInfo.cs
+C:\Users\denis.daniel.stan\source\repos\TestWebApp\TestWebApp\obj\Debug\netcoreapp2.1\TestWebApp.RazorTargetAssemblyInfo.cache
+C:\Users\denis.daniel.stan\source\repos\TestWebApp\TestWebApp\obj\Debug\netcoreapp2.1\TestWebApp.dll
+C:\Users\denis.daniel.stan\source\repos\TestWebApp\TestWebApp\obj\Debug\netcoreapp2.1\TestWebApp.pdb
