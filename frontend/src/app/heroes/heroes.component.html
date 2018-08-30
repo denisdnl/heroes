@@ -1,0 +1,12 @@
+  <div class="input-group mb-3">
+    <input type="text" [(ngModel)]="newHero.name" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="inputGroup-sizing-sm">
+    <input type="text"  [(ngModel)]="newHero.owner" class="form-control" placeholder="Owner" aria-label="Owner" aria-describedby="inputGroup-sizing-sm">
+    <button type="button" (click)="addHero()" class="btn btn-primary">Add</button>
+  </div>
+
+  <div class="list-group">
+    <div *ngFor="let hero of heroes" class="list-group-item list-group-item-action">
+      <a [routerLink]="'/details/'+hero.id">{{hero.name}}</a>
+      <i (click)="removeHero(hero.id)" class="fas fa-trash-alt"></i>
+    </div>
+  </div>

@@ -1,0 +1,18 @@
+.title{
+    color:#979797;
+    font-weight: 800 !important;
+    font-size: 25px !important;
+    padding:30px 30px 10px 30px;
+}
+
+.btn{
+    margin:10px 5px 25px 10px;
+}
+
+.dashboard.dashboardActive{
+    opacity: 0.7;
+}
+
+.heroes.heroesActive{
+    opacity: 0.7;
+}
